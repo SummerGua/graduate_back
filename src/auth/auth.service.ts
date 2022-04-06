@@ -40,7 +40,7 @@ export class AuthService {
     const isSuccessful = await argon.verify(user.password, authDto.password);
     if (isSuccessful) {
       // 登录成功
-      const token = await this.signToken(user._id, user.email)
+      const token = await this.signToken(user._id, user.email);
       return {
         code: 200,
         msg: 'correct password',

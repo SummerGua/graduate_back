@@ -5,5 +5,5 @@ import { CreateArticleDto } from './CreateArticle.dto';
 export class UpdateArticleDto extends PartialType(CreateArticleDto) {
   @IsOptional()
   @IsDate()
-  createAt: Date;
+  createdAt: Date;
 } // 继承属性和校验规则

@@ -15,7 +15,7 @@ import { UpdateArticleDto } from 'src/dto/UpdateArticle.dto';
 import { JwtGuard } from 'src/guard';
 import { ArticleService } from './article.service';
 
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @Controller('article')
 export class ArticlesController {
   constructor(private articleService: ArticleService) {}

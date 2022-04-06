@@ -3,10 +3,10 @@ import { Document } from 'mongoose';
 
 @Schema() // 可以映射到同名的Collection
 export class User extends Document {
-  @Prop({ unique: true })
+  @Prop({ unique: true, required: true })
   email: string;
 
-  @Prop()
+  @Prop({ required: true })
   password: string;
 }
 

@@ -6,7 +6,9 @@ export class CreateArticleDto {
   @IsString()
   readonly content: string;
   @IsDate()
-  readonly createAt: Date;
+  readonly createdAt: Date;
   @IsDate()
-  readonly updateAt: Date;
+  readonly updatedAt: Date;
+  @IsString()
+  readonly author: string;
 }
