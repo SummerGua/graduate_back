@@ -5,13 +5,16 @@ import { Model } from 'mongoose';
 import { CreateArticleDto } from 'src/dto/CreateArticle.dto';
 import { UpdateArticleDto } from 'src/dto/UpdateArticle.dto';
 import { PaginationQueryDto } from 'src/dto/PaginationQuery.dto';
+
 @Injectable()
 export class ArticleService {
-  constructor(@InjectModel(Article.name) private readonly articleModel: Model<Article>) {}
+  constructor(@InjectModel(Article.name) private readonly articleModel: Model<Article>) { }
 
   async findAll(paginationQueryDto: PaginationQueryDto) {
     const { limit, offset } = paginationQueryDto;
-    return this.articleModel.find().skip(offset).limit(limit).exec(); // skip代表偏移 limit代表数量
+    return (await this.articleModel.find({
+      author: ''
+    }).skip(offset).limit(limit).exec()).sort(); // skip代表偏移 limit代表数量
   }
 
   async findOne(id: string) {

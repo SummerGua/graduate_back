@@ -13,7 +13,7 @@ export class AuthService {
     private jwt: JwtService,
     private config: ConfigService,
     @InjectModel(User.name) private readonly userModel: Model<User>,
-  ) {}
+  ) { }
 
   signToken(userId: number, email: string): Promise<string> {
     const payload = {
@@ -22,7 +22,7 @@ export class AuthService {
     };
     const secret = this.config.get('JWT_SECRET');
     return this.jwt.signAsync(payload, {
-      expiresIn: '1m',
+      expiresIn: '1h',
       secret: secret,
     });
   }
@@ -66,6 +66,7 @@ export class AuthService {
     const hash = await argon.hash(authDto.password);
     const createdUser = await this.userModel.create({
       email: authDto.email,
+      username: authDto.username,
       password: hash,
     });
     return createdUser;
