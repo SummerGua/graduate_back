@@ -22,7 +22,7 @@ export class AuthService {
     };
     const secret = this.config.get('JWT_SECRET');
     return this.jwt.signAsync(payload, {
-      expiresIn: '1h',
+      expiresIn: '2 days',
       secret: secret,
     });
   }
@@ -33,10 +33,11 @@ export class AuthService {
     if (!user) {
       // 用户不存在
       return {
-        code: 200,
+        code: 400,
         msg: 'user not existed',
       };
     }
+
     const isSuccessful = await argon.verify(user.password, authDto.password);
     if (isSuccessful) {
       // 登录成功
@@ -45,10 +46,12 @@ export class AuthService {
         code: 200,
         msg: 'correct password',
         token: token,
+        username: user.username,
+        userId: user._id
       };
     } else {
       return {
-        code: 200,
+        code: 400,
         msg: 'wrong password',
       };
     }

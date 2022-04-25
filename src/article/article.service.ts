@@ -10,10 +10,10 @@ import { PaginationQueryDto } from 'src/dto/PaginationQuery.dto';
 export class ArticleService {
   constructor(@InjectModel(Article.name) private readonly articleModel: Model<Article>) { }
 
-  async findAll(paginationQueryDto: PaginationQueryDto) {
+  async findAll(paginationQueryDto: PaginationQueryDto, userId: string) {
     const { limit, offset } = paginationQueryDto;
     return (await this.articleModel.find({
-      author: ''
+      author: userId
     }).skip(offset).limit(limit).exec()).sort(); // skip代表偏移 limit代表数量
   }
 

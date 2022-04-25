@@ -1,5 +1,6 @@
 import {
   Body,
+  Request,
   Controller,
   Delete,
   Get,
@@ -24,10 +25,11 @@ export class ArticlesController {
     return this.articleService.findOne(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
-  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+  findAll(@Query() paginationQueryDto: PaginationQueryDto, @Request() req: any) {
     // const { limit, offset } = paginationQueryDto
-    return this.articleService.findAll(paginationQueryDto);
+    return this.articleService.findAll(paginationQueryDto, req.user.userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
